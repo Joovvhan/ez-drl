@@ -9,6 +9,8 @@
     python train_all.py --quick            # 더 빠른 학습 (1분)
     python train_all.py --env CartPole-v1  # 특정 환경만 학습
     python train_all.py --algo ppo         # 특정 알고리즘만 학습
+    python train_all.py --atari-only       # Atari 환경만 학습
+    python train_all.py --exclude-atari    # Atari 환경 제외
 """
 import argparse
 import time
@@ -167,7 +169,18 @@ def main():
         help="Atari 환경 제외 (시간 절약)"
     )
 
+    parser.add_argument(
+        "--atari-only",
+        action="store_true",
+        help="Atari 환경만 학습 (ALE 패키지 테스트용)"
+    )
+
     args = parser.parse_args()
+
+    # 상호 배타적 옵션 체크
+    if args.exclude_atari and args.atari_only:
+        print("❌ 오류: --exclude-atari와 --atari-only는 함께 사용할 수 없습니다.")
+        exit(1)
 
     # 학습 지속 시간 설정
     duration = QUICK_TEST_DURATION_SECONDS if args.quick else TEST_DURATION_SECONDS
@@ -186,6 +199,8 @@ def main():
         environments = list(ENVIRONMENT_CONFIGS.keys())
         if args.exclude_atari:
             environments = [env for env in environments if "ALE/" not in env]
+        elif args.atari_only:
+            environments = [env for env in environments if "ALE/" in env]
 
     if args.algo:
         algorithms = [args.algo]

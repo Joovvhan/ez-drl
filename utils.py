@@ -18,6 +18,14 @@ from config import (
     merge_configs
 )
 
+# ALE 환경 등록 (Atari 게임용)
+try:
+    import ale_py
+    from gymnasium.envs import registration
+    registration.register_envs(ale_py)
+except ImportError:
+    pass  # ale-py가 설치되지 않은 경우 무시
+
 
 def create_env(config: TrainingConfig):
     """환경 생성"""
@@ -234,7 +242,14 @@ def train_model(config: TrainingConfig, use_json_config: bool = True):
     print("=" * 70)
 
     if eval_env is None:
-        eval_env = gym.make(config.env_name)
+        # 평가 환경도 학습 환경과 동일하게 생성 (Atari의 경우 AtariWrapper 적용)
+        eval_config = TrainingConfig(
+            env_name=config.env_name,
+            algorithm=config.algorithm,
+            render=False,  # 평가 시에는 렌더링 안 함
+            n_envs=1,  # 단일 환경
+        )
+        eval_env = create_env(eval_config)
 
     mean_reward, std_reward = evaluate_policy(
         model,
