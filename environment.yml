@@ -17,5 +17,6 @@ dependencies:
       - matplotlib
       - tensorboard
       - ale-py>=0.8.0
+      - gymnasium[box2d]
       - gymnasium[atari]
       - autorom[accept-rom-license]
