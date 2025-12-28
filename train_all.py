@@ -30,9 +30,11 @@ def get_test_timesteps(env_name: str, duration_seconds: int = TEST_DURATION_SECO
     """
     # 환경별 대략적인 step/sec (CPU 기준)
     env_speed = {
-        "CartPole-v1": 2000,  # 매우 빠름
+        # "CartPole-v1": 2000,  # 매우 빠름
+        "CartPole-v1": 500,  # 매우 빠름
         "LunarLander-v3": 1000,  # 빠름
-        "BipedalWalker-v3": 300,  # 중간
+        # "BipedalWalker-v3": 300,  # 중간
+        "BipedalWalker-v3": 500,  # 중간
         "Ant-v4": 200,  # 느림 (MuJoCo)
         "ALE/Breakout-v5": 100,  # 매우 느림 (Atari)
     }
@@ -151,11 +153,14 @@ def main():
         choices=["dqn", "a2c", "ppo", "sac"],
         help="특정 알고리즘만 학습"
     )
+
     parser.add_argument(
         "--quick",
-        action="store_true",
-        help="빠른 학습 모드 (1분)"
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="빠른 학습 모드"
     )
+
     parser.add_argument(
         "--exclude-atari",
         action="store_true",
