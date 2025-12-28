@@ -1,0 +1,48 @@
+{
+  "algorithm": "dqn",
+  "common": {
+    "gamma": 0.99,
+    "train_freq": 4,
+    "gradient_steps": 1,
+    "verbose": 1
+  },
+  "environments": {
+    "CartPole-v1": {
+      "total_timesteps": 50000,
+      "learning_rate": 0.001,
+      "buffer_size": 50000,
+      "learning_starts": 1000,
+      "batch_size": 32,
+      "tau": 1.0,
+      "target_update_interval": 500,
+      "exploration_fraction": 0.1,
+      "exploration_initial_eps": 1.0,
+      "exploration_final_eps": 0.05
+    },
+    "LunarLander-v3": {
+      "total_timesteps": 300000,
+      "learning_rate": 0.0001,
+      "buffer_size": 100000,
+      "learning_starts": 10000,
+      "batch_size": 128,
+      "tau": 1.0,
+      "target_update_interval": 1000,
+      "exploration_fraction": 0.12,
+      "exploration_initial_eps": 1.0,
+      "exploration_final_eps": 0.1
+    },
+    "ALE/Breakout-v5": {
+      "total_timesteps": 1000000,
+      "learning_rate": 0.0001,
+      "buffer_size": 100000,
+      "learning_starts": 50000,
+      "batch_size": 32,
+      "tau": 1.0,
+      "target_update_interval": 10000,
+      "exploration_fraction": 0.1,
+      "exploration_initial_eps": 1.0,
+      "exploration_final_eps": 0.01,
+      "policy": "CnnPolicy"
+    }
+  }
+}

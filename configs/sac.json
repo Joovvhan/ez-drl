@@ -1,0 +1,27 @@
+{
+  "algorithm": "sac",
+  "common": {
+    "gamma": 0.99,
+    "tau": 0.005,
+    "train_freq": 1,
+    "gradient_steps": 1,
+    "ent_coef": "auto",
+    "verbose": 1
+  },
+  "environments": {
+    "BipedalWalker-v3": {
+      "total_timesteps": 300000,
+      "learning_rate": 0.0003,
+      "buffer_size": 300000,
+      "learning_starts": 10000,
+      "batch_size": 256
+    },
+    "Ant-v4": {
+      "total_timesteps": 1000000,
+      "learning_rate": 0.0003,
+      "buffer_size": 1000000,
+      "learning_starts": 10000,
+      "batch_size": 256
+    }
+  }
+}
