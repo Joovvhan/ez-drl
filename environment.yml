@@ -4,18 +4,18 @@ channels:
   - pytorch
 dependencies:
   - python=3.10
-  - pip
-  - numpy<2.0.0
   - pytorch
+  - box2d            # ✅ conda에서 설치
+  - swig             # (선택, 안전장치)
+  - pip
   - pip:
-    - stable-baselines3[extra]>=2.0.0
-    - gymnasium>=0.29.0
-    - matplotlib
-    - tensorboard
-    - box2d-py
-    - mujoco>=3.0.0
-    - imageio
-    - opencv-python
-    - ale-py>=0.8.0
-    - gymnasium[atari]
-    - autorom[accept-rom-license]
+      - stable-baselines3[extra]>=2.0.0
+      - gymnasium>=0.29.0
+      - mujoco>=3.0.0
+      - imageio
+      - opencv-python
+      - matplotlib
+      - tensorboard
+      - ale-py>=0.8.0
+      - gymnasium[atari]
+      - autorom[accept-rom-license]
